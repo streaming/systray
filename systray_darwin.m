@@ -104,6 +104,16 @@
   }
 }
 
+- (void) remove_menu_item:(id) menuId
+{
+  NSMenuItem* menuItem;
+  int existedMenuIndex = [menu indexOfItemWithRepresentedObject: menuId];
+  if (existedMenuIndex > -1) {
+    menuItem = [menu itemAtIndex: existedMenuIndex];
+    [menu removeItem:menuItem];
+  }
+}
+
 - (void) quit
 {
   [[NSStatusBar systemStatusBar] removeStatusItem: statusItem];
@@ -150,6 +160,16 @@ void add_or_update_menu_item(int menuId, char* title, char* tooltip, short disab
   free(title);
   free(tooltip);
   runInMainThread(@selector(add_or_update_menu_item:), (id)item);
+}
+
+void remove_menu_item(int theMenuId) {
+  NSNumber* menuId = [NSNumber numberWithInt:theMenuId];
+  runInMainThread(@selector(remove_menu_item:), (id)menuId);
+}
+
+void move_menu_item_to_end(int theMenuId) {
+  NSNumber* menuId = [NSNumber numberWithInt:theMenuId];
+  runInMainThread(@selector(move_menu_item_to_end:), (id)menuId);
 }
 
 void quit() {

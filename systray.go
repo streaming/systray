@@ -76,6 +76,10 @@ func AddMenuItem(title string, tooltip string) *MenuItem {
 	return item
 }
 
+func RemoveMenuItem(menuItem *MenuItem) {
+	removeMenuItem(menuItem)
+}
+
 func (item *MenuItem) SetTitle(title string) {
 	item.title = title
 	item.update()
@@ -112,6 +116,14 @@ func (item *MenuItem) Check() {
 func (item *MenuItem) Uncheck() {
 	item.checked = false
 	item.update()
+}
+
+func (item *MenuItem) Quit() {
+	removeMenuItem(item)
+}
+
+func (item *MenuItem) MoveToEnd() {
+	moveMenuItemToEnd(item)
 }
 
 // update propogates changes on a menu item to systray

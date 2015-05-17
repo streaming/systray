@@ -60,6 +60,15 @@ func addOrUpdateMenuItem(item *MenuItem) {
 	)
 }
 
+func removeMenuItem(item *MenuItem) {
+	C.remove_menu_item(C.int(item.id))
+}
+
+func moveMenuItemToEnd(item *MenuItem) {
+	removeMenuItem(item)
+	addOrUpdateMenuItem(item)
+}
+
 //export systray_ready
 func systray_ready() {
 	systrayReady()
